@@ -33,7 +33,7 @@ def get_by_id(id):
         return False
     return shop
 
-def delete(id):
+def delete_shop(id):
     shops = db.query(models.Shop).filter(models.Shop.id == id )
 
     if not shops.first:
