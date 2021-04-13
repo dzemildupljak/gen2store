@@ -2,8 +2,9 @@ from helpers import convert_to_dict
 from database import SessionLocal
 import models
 
-
+db = SessionLocal()
 # C
+
 
 def add_new_product(shop_id,):
     shop = db.query(models.Shop).filer(models.Shop.id == shop_id)
@@ -13,6 +14,8 @@ def add_new_product(shop_id,):
     p1.typee = input('Unesite tip product-a: ')
     p1.price = float(input('Unesite cenu product-a: '))
     p1.quantity = float(input('Unesite quantity product-a: '))
+    if p1.typee in ("medicine", "parking ticket"):
+        p1.serial_number = input("Unesite serial number: ")
     p1.serial_number = input('Unesite serial number product-a: ')
     if shop.type == "pharmacy" and p1.typee == "medicine":
         db.add(p1)
