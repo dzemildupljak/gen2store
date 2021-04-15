@@ -5,9 +5,7 @@ import models
 db = SessionLocal()
 
 
-def add_new_bill(Bill_id,):
-    bill = db.query(models.Bill).filer(models.Bill.id == Bill_id)
-
+def add_new_bill():
     b1 = models.bill()
     
     db.add(b1)
@@ -27,6 +25,14 @@ def get_bill_by_id(id):
     if not bills:
         return False
     return bills
+
+
+def get_bill_by_uuid(uuid):
+    bills = db.query(models.Bill).filter(models.Bill.bill_number == uuid).first()
+    if not bills:
+        return False
+    return bills
+
 
 
 def update_Bill(id, newBill):
