@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from database import Base
 from sqlalchemy.orm import relationship
+from database import Base
+import datetime
+import uuid
 
 
 class Shop(Base):
@@ -20,3 +22,21 @@ class Product(Base):
     quantity = Column('quantity', String)
     serial_number = Column('serial number', String)
     shop_id = Column('shop_id', Integer, ForeignKey('shops.id'))
+
+
+class Customer(Base):
+    __tablename__ = "customer's data"
+    id = Column("id", Integer, primary_key=True)
+    firstname = Column("firstname", String)
+    lastname = Column("lastname", String)
+    telephone_number = Column("telephone_number", String)
+    points = Column("Points", Integer)
+    bill = relationship("Bill")
+
+
+class Bill(Base):
+    __tablename__ = "Bill"
+    id = Column("id", Integer, primary_key=True)
+    bill_number = str(uuid.uuid1())
+    bill_date = datetime.time()
+    customer_id = Column("customer_id", Integer, ForeignKey("customer.id"))

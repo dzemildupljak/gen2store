@@ -2,9 +2,6 @@ from helpers import convert_to_dict
 from database import SessionLocal
 import models
 
-
-
-
 db = SessionLocal()
 
 
@@ -27,14 +24,16 @@ def get_all():
         return False
     return shops
 
+
 def get_by_id(id):
-    shop = db.query(models.Shop).filter(models.Shop.id == id ).first()
-    if not shop :
+    shop = db.query(models.Shop).filter(models.Shop.id == id).first()
+    if not shop:
         return False
     return shop
 
+
 def delete(id):
-    shops = db.query(models.Shop).filter(models.Shop.id == id )
+    shops = db.query(models.Shop).filter(models.Shop.id == id)
 
     if not shops.first:
         return False
@@ -43,8 +42,9 @@ def delete(id):
     db.commit()
     return True
 
+
 def update(id, newShop):
-    shops = db.query(models.Shop).filter(models.Shop.id == id )
+    shops = db.query(models.Shop).filter(models.Shop.id == id)
 
     if not shops.first():
         return False
@@ -52,4 +52,3 @@ def update(id, newShop):
     shops.update(convert_to_dict(newShop), synchronize_session=False)
     db.commit()
     return True
-
