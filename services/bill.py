@@ -6,7 +6,7 @@ db = SessionLocal()
 
 
 def add_new_bill():
-    b1 = models.bill()
+    b1 = models.Bill()
     
     db.add(b1)
     db.commit()
