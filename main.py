@@ -5,4 +5,5 @@ from services import shop, product
 models.Base.metadata.create_all(engine)
 
 
-product.add_new_prod(2, 'Andol', 'medicine', 120)
+
+shop.add_new_shop()
