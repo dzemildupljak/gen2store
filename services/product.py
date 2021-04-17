@@ -1,3 +1,5 @@
+from sqlalchemy.sql.expression import false
+from sqlalchemy.sql.functions import mode
 from helpers import convert_to_dict
 from database import SessionLocal
 import models
@@ -5,17 +7,17 @@ import models
 db = SessionLocal()
 
 
-def add_new_product(shop_id,):
-    shop = db.query(models.Shop).filer(models.Shop.id == shop_id)
+def add_new_product(shop_id):
+    shop = db.query(models.Shop).filter(models.Shop.id == shop_id)
 
     p1 = models.Product()
     p1.name = input('Unesite ime product-a: ')
     p1.typee = input('Unesite tip product-a: ')
     p1.price = float(input('Unesite cenu product-a: '))
     p1.quantity = float(input('Unesite quantity product-a: '))
+    p1.shop_id == shop_id
     if p1.typee in ('medicine', 'parking ticket'):
         p1.serial_number = input('Unesite serial number product-a: ')
-
     if shop.type == "pharmacy" and p1.typee == "medicine":
         db.add(p1)
         db.commit()
