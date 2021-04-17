@@ -6,7 +6,7 @@ db = SessionLocal()
 
 
 def add_new_product(shop_id,):
-    shop = db.query(models.Shop).filer(models.Shop.id == shop_id)
+    shop = db.query(models.Shop).filter(models.Shop.id == shop_id)
 
     p1 = models.Product()
     p1.name = input('Unesite ime product-a: ')

@@ -1,12 +1,21 @@
 from helpers import convert_to_dict
 from database import SessionLocal
 import models
+import datetime
+import uuid
 
 db = SessionLocal()
 
 
-def add_new_bill():
+def add_new_bill(c_id):
+    
+    customer = db.query(models.Customer).filter(models.Customer.id == c_id)
+    if customer.first():
+        return False
     b1 = models.Bill()
+    b1.bill_number = uuid.uuid1()
+    b1.bill_date = datetime.now()
+    b1.customer_id = c_id
     
     db.add(b1)
     db.commit()
