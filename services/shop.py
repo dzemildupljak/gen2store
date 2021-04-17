@@ -2,6 +2,7 @@ from helpers import convert_to_dict
 from database import SessionLocal
 import models
 
+
 db = SessionLocal()
 
 

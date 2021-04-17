@@ -23,7 +23,7 @@ class Product(Base):
 
 
 class Customer(Base):
-    __tablename__ = "customers"
+    __tablename__ = "customer"
     id = Column("id", Integer, primary_key=True)
     firstname = Column("firstname", String)
     lastname = Column("lastname", String)
@@ -37,4 +37,4 @@ class Bill(Base):
     id = Column("id", Integer, primary_key=True)
     bill_number = Column('bill_number', String)
     bill_date = Column('bill_date', DateTime)
-    customer_id = Column('customer_id', Integer, ForeignKey("customers.id"))
+    customer_id = Column('customer_id', Integer, ForeignKey("customer.id"))
