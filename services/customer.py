@@ -1,20 +1,17 @@
 from helpers import convert_to_dict
 from database import SessionLocal
 import models
-import datetime
-import uuid
 
 db = SessionLocal()
 
 
-def add_new_customer(bill):
+def add_new_customer():
     
     c1 = models.Customer()
     c1.firstname = input('Unesite ime customera: ')
     c1.lastname = input('Unesite prezime customera: ')
     c1.telephone_number = input('Unesite broj telefona:')
     c1.points = int(input('Unesite poene: '))
-    c1.bill = bill
 
     db.add(c1)
     db.commit()
