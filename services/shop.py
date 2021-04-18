@@ -18,21 +18,21 @@ def add_new_shop():
         print('Doslo je do greske pri upisivanju u bazi')
 
 
-def get_all():
+def get_all_shop():
     shops = db.query(models.Shop).all()
     if not shops:
         return False
     return shops
 
 
-def get_by_id(id):
+def get_by_id_shop(id):
     shop = db.query(models.Shop).filter(models.Shop.id == id).first()
     if not shop:
         return False
     return shop
 
 
-def delete(id):
+def delete_shop(id):
     shops = db.query(models.Shop).filter(models.Shop.id == id)
 
     if not shops.first:
@@ -43,7 +43,7 @@ def delete(id):
     return True
 
 
-def update(id, newShop):
+def update_shop(id, newShop):
     shops = db.query(models.Shop).filter(models.Shop.id == id)
 
     if not shops.first():

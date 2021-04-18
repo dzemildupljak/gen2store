@@ -51,6 +51,14 @@ def get_product_by_id(id):
     return products
 
 
+def get_product_by_shop_id(shop_id):
+    products = db.query(models.Product).filter(
+        models.Product.shop_id == shop_id).all()
+    if not products:
+        return False
+    return products
+
+
 def update_product(id, newProduct):
     products = db.query(models.Product).filter(models.Product.id == id)
 

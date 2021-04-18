@@ -8,15 +8,23 @@ db = SessionLocal()
 def add_new_customer():
 
     c1 = models.Customer()
-    c1.firstname = input('Unesite ime customera: ')
-    c1.lastname = input('Unesite prezime customera: ')
+    c1.firstname = input('Unesite ime customera: ').capitalize()
+    c1.lastname = input('Unesite prezime customera: ').capitalize()
     c1.telephone_number = input('Unesite broj telefona:')
-    try:
-        db.add(c1)
-        db.commit()
-        db.close()
-    except:
-        print("Doslo do greske pri upisivanju u bazi!")
+
+    check = bool(db.query(models.Customer).filter(models.Customer.firstname == c1.firstname,
+                                                  models.Customer.lastname == c1.lastname, models.Customer.telephone_number == c1.telephone_number))
+    if check:
+        pass
+        # dodati sabiranje poena
+    else:
+        try:
+            db.add(c1)
+            db.commit()
+            db.close()
+        except:
+            print("Doslo do greske pri upisivanju u bazi!")
+    return = c1.id
 
 
 def get_all_customers():
