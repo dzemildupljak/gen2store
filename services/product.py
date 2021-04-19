@@ -8,28 +8,31 @@ db = SessionLocal()
 
 
 def add_new_product(shop_id):
-    shop = db.query(models.Shop).filter(models.Shop.id == shop_id)
+    shop = db.query(models.Shop).filter(models.Shop.id == shop_id).first()
 
     p1 = models.Product()
     p1.name = input('Unesite ime product-a: ')
     p1.typee = input('Unesite tip product-a: ')
     p1.price = float(input('Unesite cenu product-a: '))
     p1.quantity = float(input('Unesite quantity product-a: '))
-    p1.shop_id == shop_id
+    p1.shop_id = shop_id
     if p1.typee in ('medicine', 'parking ticket'):
         p1.serial_number = input('Unesite serial number product-a: ')
-    if shop.type == "pharmacy" and p1.typee == "medicine":
-        db.add(p1)
-        db.commit()
-        db.close()
-        print('Uspesno ste dodali medicine product')
-    elif shop.type != "pharmacy" and p1.typee == "medicine":
+    if shop.typee == "pharmacy" and p1.typee == "medicine":
+        try:
+            db.add(p1)
+            db.commit()
+            db.close()
+            print('Uspesno ste dodali medicine product')
+        except:
+            print('Doslo je do greske pri upisivanju u bazi')
+    elif shop.typee != "pharmacy" and p1.typee == "medicine":
         print('Doslo je do greske pri upisivanju u bazi')
-    elif shop.type == "corner shop" and p1.typee == "cigarettes":
+    elif shop.typee == "corner shop" and p1.typee == "cigarettes":
         db.add(p1)
         db.commit()
         db.close()
-    elif shop.type != "corner shop" and p1.typee == "cigarettes":
+    elif shop.typee != "corner shop" and p1.typee == "cigarettes":
         print('Doslo je do greske pri upisivanju u bazi')
     else:
         db.add(p1)

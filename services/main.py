@@ -1,7 +1,8 @@
-from services.product import get_product_by_id, update_product, get_product_by_shop_id
-from services.customer import add_new_customer, get_customer_by_id
-from services.shop import get_all_shop, get_by_id_shop
-from services.bill import add_new_bill
+
+from product import *
+from customer import *
+from shop import *
+from bill import *
 import models
 
 
