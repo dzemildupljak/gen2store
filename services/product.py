@@ -14,7 +14,7 @@ def add_new_product(shop_id):
     p1.name = input('Unesite ime product-a: ')
     p1.typee = input('Unesite tip product-a: ')
     p1.price = float(input('Unesite cenu product-a: '))
-    p1.quantity = float(input('Unesite quantity product-a: '))
+    quantity = float(input('Unesite quantity product-a: '))
     p1.shop_id == shop_id
     if p1.typee in ('medicine', 'parking ticket'):
         p1.serial_number = input('Unesite serial number product-a: ')
