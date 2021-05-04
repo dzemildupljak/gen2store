@@ -8,7 +8,9 @@ class Shop(Base):
     __tablename__ = 'shops'
     id = Column('id', Integer, primary_key=True)
     name = Column('name', String)
-    type = Column('type', String)
+    city = Column("city", String)
+    address = Column("address", String)
+    typee = Column('type', String)
     products = relationship('Product', backref='shop')
 
 
@@ -21,6 +23,7 @@ class Product(Base):
     serial_number = Column('serial number', String)
     shop_id = Column('shop_id', Integer, ForeignKey('shops.id'))
     storage = relationship("Storage", uselist=False, back_populates="product")
+# TODO dodati odabir kolicina (kg,komad,)
 
 
 class Customer(Base):

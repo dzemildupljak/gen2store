@@ -3,38 +3,78 @@ from sqlalchemy.sql.functions import mode
 from helpers import convert_to_dict
 from database import SessionLocal
 import models
+from services import storage
 
 db = SessionLocal()
 
 
 def add_new_product(shop_id):
-    shop = db.query(models.Shop).filter(models.Shop.id == shop_id)
+    shop = db.query(models.Shop).filter(models.Shop.id == shop_id).first()
 
     p1 = models.Product()
     p1.name = input('Unesite ime product-a: ')
-    p1.typee = input('Unesite tip product-a: ')
     p1.price = float(input('Unesite cenu product-a: '))
-    quantity = float(input('Unesite quantity product-a: '))
-    p1.shop_id == shop_id
+    p1.shop_id = shop_id
+    while True:
+        print(
+            "Available types: FOOD ; DRINK ; MEDICINE ; CIGARETTES ; PARKING TICKETS ; TOYS")
+        a = input('Unesite tip product-a: ').capitalize()
+        if a in ("Food", "Drink", "Medicine", "Cigarettes", "Parkin ticket", "Toys"):
+            p1.typee = a
+            break
     if p1.typee in ('medicine', 'parking ticket'):
         p1.serial_number = input('Unesite serial number product-a: ')
-    if shop.type == "pharmacy" and p1.typee == "medicine":
+    if shop.typee == "pharmacy" and p1.typee == "medicine":
         db.add(p1)
         db.commit()
-        db.close()
-        print('Uspesno ste dodali medicine product')
-    elif shop.type != "pharmacy" and p1.typee == "medicine":
-        print('Doslo je do greske pri upisivanju u bazi')
-    elif shop.type == "corner shop" and p1.typee == "cigarettes":
+        db.refresh(p1)
+        odabir = input("Unos quantity\n1.DA 2.NE").capitalize()
+        if odabir in ("Ne", "2"):
+            try:
+                storage.add_new_storage(p1.id)
+            except:
+                print("Error!")
+        elif odabir in ("Da", "1"):
+            try:
+                storage.add_new_storage(
+                    p1.id, qn=int(input("Unesite quantity: ")))
+            except:
+                print("Error!")
+
+    elif shop.typee != "pharmacy" and p1.typee == "medicine":
+        print('Medicine mozete dodati samo u shop sa tipom Pharmacy!')
+
+    elif shop.typee == "cornershop" and p1.typee == "cigarettes":
         db.add(p1)
         db.commit()
-        db.close()
-    elif shop.type != "corner shop" and p1.typee == "cigarettes":
-        print('Doslo je do greske pri upisivanju u bazi')
+        db.refresh(p1)
+        odabir = input("Unos quantity\n1.DA 2.NE").capitalize()
+        if odabir in ("Ne", "2"):
+            try:
+                storage.add_new_storage(p1.id)
+            except:
+                print("Error!")
+        if odabir in ("Da", "1"):
+            try:
+                storage.add_new_storage(
+                    p1.id, qn=int(input("Unesite quantity: ")))
+            except:
+                print("Error!")
+    elif shop.typee != "cornershop" and p1.typee == "cigarettes":
+        print('Cigarettes mozete dodati samo u shop sa tipom Cornershop')
     else:
-        db.add(p1)
-        db.commit()
-        db.close()
+        odabir = input("Unos quantity\n1.DA 2.NE").capitalize()
+        if odabir in ("Ne", "2"):
+            try:
+                storage.add_new_storage(p1.id, None)
+            except:
+                print("Error!")
+        if odabir in ("Da", "1"):
+            try:
+                storage.add_new_storage(
+                    p1.id, qn=int(input("Unesite quantity: ")))
+            except:
+                print("Error!")
 
 
 def get_all_products():
@@ -46,6 +86,14 @@ def get_all_products():
 
 def get_product_by_id(id):
     products = db.query(models.Product).filter(models.Product.id == id).first()
+    if not products:
+        return False
+    return products
+
+
+def get_product_by_id(shop_id):
+    products = db.query(models.Product).filter(
+        models.Product.shop_id == shop_id).all()
     if not products:
         return False
     return products

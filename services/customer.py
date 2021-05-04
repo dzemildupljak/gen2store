@@ -48,7 +48,7 @@ def update_customer(id, newCustomer):
 def delete_customer(id):
     customer = db.query(models.Customer).filter(models.Customer.id == id)
 
-    if not customer.first:
+    if not customer.first():
         return False
 
     customer.delete()
