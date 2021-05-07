@@ -8,8 +8,8 @@ db = SessionLocal()
 def add_new_shop():
     s1 = models.Shop()
     s1.name = input('Unesite ime shop-a: ')
-    while s1.typee not in ('supermarket', 'cornershop', 'pharmacy'):
-        s1.typee = input('Unesite tip shop-a: ')
+    while s1.typee not in ('Supermarket', 'Corner shop', 'Pharmacy'):
+        s1.typee = input('Unesite tip shop-a: ').capitalize()()
     s1.city = input("Unesite grad: ").capitalize()
     s1.address = input("Unesite adresu: ").capitalize()
     try:
@@ -68,3 +68,7 @@ def update(id, newShop):
     shops.update(convert_to_dict(newShop), synchronize_session=False)
     db.commit()
     return True
+
+
+def shop_type_id(shop_id):
+    shop

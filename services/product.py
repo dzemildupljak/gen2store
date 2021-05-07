@@ -15,13 +15,23 @@ def add_new_product(shop_id):
     p1.name = input('Unesite ime product-a: ')
     p1.price = float(input('Unesite cenu product-a: '))
     p1.shop_id = shop_id
-    while True:
-        print(
-            "Available types: FOOD ; DRINK ; MEDICINE ; CIGARETTES ; PARKING TICKETS ; TOYS")
-        a = input('Unesite tip product-a: ').capitalize()
-        if a in ("Food", "Drink", "Medicine", "Cigarettes", "Parkin ticket", "Toys"):
-            p1.typee = a
-            break
+    if shop.typee == "Pharmacy":
+        while p1.typee not in ("Food", "Drink", "Medicine",  "Parking ticket", "Toys"):
+            print(
+                "Available types: FOOD ; DRINK ; MEDICINE ; PARKING TICKETS ; TOYS")
+            p1.typee = input('Unesite tip product-a: ').capitalize()
+    elif shop.typee == "Corner shop":
+        while p1.typee not in ("Food", "Drink", "Cigarettes",  "Parking ticket", "Toys"):
+            print(
+                "Available types: FOOD ; DRINK ; CIGARETTES ; PARKING TICKETS ; TOYS")
+            p1.typee = input('Unesite tip product-a: ').capitalize()
+    elif shop.typee == "supermarket":
+        while p1.typee not in ("Food", "Drink", "Parking ticket", "Toys"):
+            print(
+                "Available types: FOOD ; DRINK ; PARKING TICKETS ; TOYS")
+            p1.typee = input('Unesite tip product-a: ').capitalize()
+    else:
+        print("Error")
     if p1.typee in ('medicine', 'parking ticket'):
         p1.serial_number = input('Unesite serial number product-a: ')
     if shop.typee == "pharmacy" and p1.typee == "medicine":
