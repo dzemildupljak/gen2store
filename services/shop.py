@@ -68,7 +68,3 @@ def update(id, newShop):
     shops.update(convert_to_dict(newShop), synchronize_session=False)
     db.commit()
     return True
-
-
-def shop_type_id(shop_id):
-    shop

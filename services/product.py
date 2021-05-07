@@ -20,6 +20,7 @@ def add_new_product(shop_id):
             print(
                 "Available types: FOOD ; DRINK ; MEDICINE ; PARKING TICKETS ; TOYS")
             p1.typee = input('Unesite tip product-a: ').capitalize()
+        p1.serial_number = input("Unesite serial number product-a: ")
     elif shop.typee == "Corner shop":
         while p1.typee not in ("Food", "Drink", "Cigarettes",  "Parking ticket", "Toys"):
             print(
@@ -32,59 +33,26 @@ def add_new_product(shop_id):
             p1.typee = input('Unesite tip product-a: ').capitalize()
     else:
         print("Error")
-    if p1.typee in ('medicine', 'parking ticket'):
+    if p1.typee in ('Medicine', 'Parking ticket'):
         p1.serial_number = input('Unesite serial number product-a: ')
-    if shop.typee == "pharmacy" and p1.typee == "medicine":
+    try:
         db.add(p1)
         db.commit()
         db.refresh(p1)
-        odabir = input("Unos quantity\n1.DA 2.NE").capitalize()
-        if odabir in ("Ne", "2"):
-            try:
-                storage.add_new_storage(p1.id)
-            except:
-                print("Error!")
-        elif odabir in ("Da", "1"):
-            try:
-                storage.add_new_storage(
-                    p1.id, qn=int(input("Unesite quantity: ")))
-            except:
-                print("Error!")
-
-    elif shop.typee != "pharmacy" and p1.typee == "medicine":
-        print('Medicine mozete dodati samo u shop sa tipom Pharmacy!')
-
-    elif shop.typee == "cornershop" and p1.typee == "cigarettes":
-        db.add(p1)
-        db.commit()
-        db.refresh(p1)
-        odabir = input("Unos quantity\n1.DA 2.NE").capitalize()
-        if odabir in ("Ne", "2"):
-            try:
-                storage.add_new_storage(p1.id)
-            except:
-                print("Error!")
-        if odabir in ("Da", "1"):
-            try:
-                storage.add_new_storage(
-                    p1.id, qn=int(input("Unesite quantity: ")))
-            except:
-                print("Error!")
-    elif shop.typee != "cornershop" and p1.typee == "cigarettes":
-        print('Cigarettes mozete dodati samo u shop sa tipom Cornershop')
-    else:
-        odabir = input("Unos quantity\n1.DA 2.NE").capitalize()
-        if odabir in ("Ne", "2"):
-            try:
-                storage.add_new_storage(p1.id, None)
-            except:
-                print("Error!")
-        if odabir in ("Da", "1"):
-            try:
-                storage.add_new_storage(
-                    p1.id, qn=int(input("Unesite quantity: ")))
-            except:
-                print("Error!")
+    except:
+        print("Error")
+    odabir = input("Unos quantity\n1.DA 2.NE").capitalize()
+    if odabir in ("Ne", "2"):
+        try:
+            storage.add_new_storage(p1.id)
+        except:
+            print("Error!")
+    elif odabir in ("Da", "1"):
+        try:
+            storage.add_new_storage(
+                p1.id, qn=int(input("Unesite quantity: ")))
+        except:
+            print("Error!")
 
 
 def get_all_products():

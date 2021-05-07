@@ -10,10 +10,9 @@ db = SessionLocal()
 
 def add_new_bill(c_id):
     customer = db.query(models.Customer).filter(models.Customer.id == c_id)
-    if customer.first():
-        return false
+
     b1 = models.Bill()
-    b1.bill_number = uuid.uuid1()
+    b1.bill_number = str(uuid.uuid1())
     b1.customer_id = c_id
     b1.bill_date = datetime.datetime.now()
 

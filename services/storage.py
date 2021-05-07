@@ -32,6 +32,6 @@ def add_new_storage(prod_id, qn):
         db.add(s1)
         db.commit()
         db.close()
-        print('Uspesno ste dodali product')
+        print('Uspesno ste dodali product u storage')
     except:
         print("Error")
