@@ -76,24 +76,3 @@ def delete_product(id):
     product.delete()
     db.commit()
     return True
-
-
-# CRUD FOR STORAGE
-
-def get_quantity_by_product_id(id):
-    products = db.query(models.Storage).filter(
-        models.Storage.id == products.id).first()
-    if not products:
-        return False
-    return products
-
-
-def update_quantity(id, newStorage):
-    products = db.query(models.Storage).filter(models.Storage.id == id)
-
-    if not products.first():
-        return False
-
-    products.update(convert_to_dict(newStorage), synchronize_session=False)
-    db.commit()
-    return True
