@@ -11,9 +11,9 @@ def get_product_quantity_from_storage_by_id(prod_id):
     return product.quantity
 
 
-def update_storage(prod_id, newStorage):
-    product = db.query(Storage).filter(Storage.prod_id == prod_id)
-    product.update(convert_to_dict(newStorage), synchronize_session=False)
+def update_storage(prod_id, newQuantity):
+    storage = db.query(Storage).filter(Storage.prod_id == prod_id)
+    storage.update({"quantity": newQuantity}, synchronize_session=False)
     db.commit()
 
 

@@ -3,7 +3,7 @@ from sqlalchemy.sql.functions import mode
 from helpers import convert_to_dict
 from database import SessionLocal
 import models
-from services import storage
+from .storage import add_new_storage
 
 db = SessionLocal()
 
@@ -15,7 +15,6 @@ def add_new_product(shop_id):
     p1.name = input('Unesite ime product-a: ')
     p1.typee = input('Unesite tip product-a: ')
     p1.price = float(input('Unesite cenu product-a: '))
-    quantity = float(input('Unesite quantity product-a: '))
     p1.shop_id = shop_id
     if p1.typee in ('medicine', 'parking ticket'):
         p1.serial_number = input('Unesite serial number product-a: ')
