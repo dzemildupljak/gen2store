@@ -6,14 +6,14 @@ from helpers import convert_to_dict
 db = SessionLocal()
 
 
-def get_product_quantity_from_storage(prod_id):
+def get_product_quantity_from_storage_by_id(prod_id):
     product = db.query(Storage).filter(Storage.product_id == prod_id).first()
     return product.quantity
 
 
-def update_storage(prod_id, newProduct):
+def update_storage(prod_id, newStorage):
     product = db.query(Storage).filter(Storage.prod_id == prod_id)
-    product.update(convert_to_dict(newProduct), synchronize_session=False)
+    product.update(convert_to_dict(newStorage), synchronize_session=False)
     db.commit()
 
 
