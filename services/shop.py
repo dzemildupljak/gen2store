@@ -8,14 +8,17 @@ db = SessionLocal()
 def add_new_shop():
     s1 = models.Shop()
     s1.name = input('Unesite ime shop-a: ')
-    while s1.type not in ('supermarket', 'cornershop', 'pharmacy'):
-        s1.type = input('Unesite tip shop-a: ')
+    while s1.typee not in ('supermarket', 'cornershop', 'pharmacy'):
+        s1.typee = input('Unesite tip shop-a: ')
     try:
         db.add(s1)
         db.commit()
+        db.refresh(s1)
         db.close()
+        return s1
     except:
         print('Doslo je do greske pri upisivanju u bazi')
+        return False
 
 
 def get_all():
@@ -30,6 +33,20 @@ def get_by_id(id):
     if not shop:
         return False
     return shop
+
+
+def get_by_city_shop(city):
+    shops = db.query(models.Shop).filter(models.Shop.city == city).all()
+    if not shops:
+        return False
+    return shops
+
+
+def get_by_address_shop(address):
+    shops = db.query(models.Shop).filter(models.Shop.address == address).all()
+    if not shops:
+        return False
+    return shops
 
 
 def delete(id):

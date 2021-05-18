@@ -8,7 +8,7 @@ class Shop(Base):
     __tablename__ = 'shops'
     id = Column('id', Integer, primary_key=True)
     name = Column('name', String)
-    type = Column('type', String)
+    typee = Column('type', String)
     products = relationship('Product', backref='shop')
 
 
