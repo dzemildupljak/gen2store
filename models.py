@@ -63,3 +63,17 @@ class Storage(Base):
     product_id = Column('product_id', Integer, ForeignKey('products.id'))
     product = relationship("Product", back_populates="storage")
     quantity = Column('quantity', Integer)
+
+
+class SellProducts
+
+
+(Base):
+    __tablename__ = "sell_products"
+    id = Column('id', Integer, primary_key=True)
+    product_id = Column('product_id', Integer, ForeignKey('products.id'))
+    product = relationship("Product")
+    quantity = Column('quantity', Integer)
+    price = Column('price', Integer)
+    bill_id = Column('bill.id', Integer, ForeignKey('bills.id'))
+    bill = relationship("Bill")
